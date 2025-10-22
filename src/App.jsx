@@ -1,14 +1,11 @@
-import { useState } from 'react'
+import Dashboard from './pages/Dashboard';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <p className='text-red-300'>this is a red paragraph</p>
-      this is the app
+    <div className="App">
+      <Dashboard />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
