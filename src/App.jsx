@@ -1,11 +1,133 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
+import TestPage from './pages/TestPage';
+import { 
+  Home, 
+  Package, 
+  Truck, 
+  Users, 
+  ShoppingCart, 
+  BarChart3, 
+  Settings
+} from 'lucide-react';
 
+// Define menu structure here to share between components
+const menuItems = [
+  { icon: <Home size={20} />, label: 'Dashboard', path: '/' },
+  { 
+    icon: <Package size={20} />, 
+    label: 'Inventory', 
+    path: '/inventory',
+    subItems: [
+      { label: 'All Products', path: '/inventory' },
+      { label: 'Categories', path: '/inventory/categories' },
+      { label: 'Low Stock', path: '/inventory/low-stock' },
+    ]
+  },
+  { icon: <Truck size={20} />, label: 'Suppliers', path: '/suppliers' },
+  { icon: <Users size={20} />, label: 'Customers', path: '/customers' },
+  { icon: <ShoppingCart size={20} />, label: 'Orders', path: '/orders' },
+  { icon: <BarChart3 size={20} />, label: 'Analytics', path: '/analytics' },
+  { icon: <Settings size={20} />, label: 'Settings', path: '/settings' },
+];
+
+// Router-enabled App component
+function RouterApp() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const activePath = location.pathname;
+
+  const handlePathChange = (path) => {
+    navigate(path);
+  };
+
+  return (
+    <MainLayout 
+      activePath={activePath}
+      menuItems={menuItems}
+      onPathChange={handlePathChange}
+    >
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        
+        {/* Inventory Routes */}
+        <Route path="/inventory" element={
+          <TestPage 
+            title="All Products" 
+            description="Manage your complete product inventory. View, edit, and organize all your products in one place."
+          />
+        } />
+        <Route path="/inventory/categories" element={
+          <TestPage 
+            title="Categories" 
+            description="Organize your products into categories for better inventory management and reporting."
+          />
+        } />
+        <Route path="/inventory/low-stock" element={
+          <TestPage 
+            title="Low Stock Alerts" 
+            description="Monitor products that are running low and need restocking to avoid stockouts."
+          />
+        } />
+        
+        {/* Other Routes */}
+        <Route path="/suppliers" element={
+          <TestPage 
+            title="Suppliers" 
+            description="Manage your supplier relationships, contact information, and order history."
+          />
+        } />
+        <Route path="/customers" element={
+          <TestPage 
+            title="Customers" 
+            description="View and manage customer information, order history, and preferences."
+          />
+        } />
+        <Route path="/orders" element={
+          <TestPage 
+            title="Orders" 
+            description="Track and manage all incoming and outgoing orders with real-time status updates."
+          />
+        } />
+        <Route path="/analytics" element={
+          <TestPage 
+            title="Analytics" 
+            description="Gain insights into your inventory performance, sales trends, and business metrics."
+          />
+        } />
+        <Route path="/settings" element={
+          <TestPage 
+            title="Settings" 
+            description="Configure your inventory management system preferences and user settings."
+          />
+        } />
+        
+        {/* 404 Page */}
+        <Route path="*" element={
+          <div className="p-6 text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Page Not Found</h1>
+            <p className="text-gray-600 mb-6">The page you're looking for doesn't exist.</p>
+            <button 
+              onClick={() => navigate('/')}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Go to Dashboard
+            </button>
+          </div>
+        } />
+      </Routes>
+    </MainLayout>
+  );
+}
+
+// Main App component with Router
 function App() {
   return (
-    <MainLayout>
-      <Dashboard />
-    </MainLayout>
+    <Router>
+      <RouterApp />
+    </Router>
   );
 }
 

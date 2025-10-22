@@ -1,29 +1,76 @@
+import React, { useState, useEffect } from 'react';
 import { 
   Package, 
-  Home, 
-  BarChart3, 
-  Settings, 
-  Users, 
-  FileText,
-  Truck,
   X,
   ChevronDown
 } from 'lucide-react';
 
-const Sidebar = ({ isOpen, onClose }) => {
-  const menuItems = [
-    { icon: <Home size={20} />, label: 'Dashboard', path: '/', active: true },
-    { icon: <Package size={20} />, label: 'Inventory', path: '/inventory', subItems: [
-      { label: 'All Products', path: '/inventory' },
-      { label: 'Categories', path: '/inventory/categories' },
-      { label: 'Low Stock', path: '/inventory/low-stock' },
-    ]},
-    { icon: <Truck size={20} />, label: 'Suppliers', path: '/suppliers' },
-    { icon: <Users size={20} />, label: 'Customers', path: '/customers' },
-    { icon: <FileText size={20} />, label: 'Orders', path: '/orders' },
-    { icon: <BarChart3 size={20} />, label: 'Analytics', path: '/analytics' },
-    { icon: <Settings size={20} />, label: 'Settings', path: '/settings' },
-  ];
+const Sidebar = ({ isOpen, onClose, activePath, menuItems, onPathChange }) => {
+  const [expandedMenus, setExpandedMenus] = useState({});
+
+  // Initialize expanded state for menus with subItems
+  useEffect(() => {
+    const initialExpandedState = {};
+    menuItems.forEach(item => {
+      if (item.subItems) {
+        // Check if any sub-item is active and expand the parent
+        const hasActiveSubItem = item.subItems.some(subItem => 
+          subItem.path === activePath
+        );
+        initialExpandedState[item.path] = hasActiveSubItem;
+      }
+    });
+    setExpandedMenus(initialExpandedState);
+  }, [activePath, menuItems]);
+
+  // Toggle expand/collapse for menus with subItems
+  const toggleMenu = (path) => {
+    setExpandedMenus(prev => ({
+      ...prev,
+      [path]: !prev[path]
+    }));
+  };
+
+  // Check if a menu item is active
+  const isItemActive = (item) => {
+    if (item.path === activePath) return true;
+    if (item.subItems) {
+      return item.subItems.some(subItem => subItem.path === activePath);
+    }
+    return false;
+  };
+
+  // Check if a sub-item is active
+  const isSubItemActive = (subItemPath) => {
+    return subItemPath === activePath;
+  };
+
+  // Handle menu item click
+  const handleMenuItemClick = (item, event) => {
+    if (item.subItems) {
+      event.preventDefault();
+      toggleMenu(item.path);
+    } else {
+      if (onPathChange) {
+        onPathChange(item.path);
+      }
+      // Close sidebar on mobile after selection
+      if (window.innerWidth < 1024) {
+        onClose();
+      }
+    }
+  };
+
+  // Handle sub-item click
+  const handleSubItemClick = (path) => {
+    if (onPathChange) {
+      onPathChange(path);
+    }
+    // Close sidebar on mobile after selection
+    if (window.innerWidth < 1024) {
+      onClose();
+    }
+  };
 
   return (
     <>
@@ -31,7 +78,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Sidebar */}
       <div className={`
         fixed inset-y-0 left-0 z-30
-        w-64 bg-white transform transition-transform duration-300 ease-in-out
+        w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
         lg:translate-x-0 lg:static lg:z-auto
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
@@ -52,43 +99,69 @@ const Sidebar = ({ isOpen, onClose }) => {
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 space-y-2">
-          {menuItems.map((item, index) => (
-            <div key={index}>
-              <button
-                className={`
-                  w-full flex items-center justify-between p-3 rounded-lg transition-colors
-                  ${item.active 
-                    ? 'bg-blue-50 text-blue-600 border border-blue-200' 
-                    : 'text-gray-700 hover:bg-gray-100'
-                  }
-                `}
-              >
-                <div className="flex items-center space-x-3">
-                  {item.icon}
-                  <span className="font-medium">{item.label}</span>
-                </div>
+        <nav className="p-4 space-y-1">
+          {menuItems.map((item, index) => {
+            const isActive = isItemActive(item);
+            const isExpanded = expandedMenus[item.path];
+            
+            return (
+              <div key={index}>
+                {/* Main menu item */}
+                <button
+                  onClick={(e) => handleMenuItemClick(item, e)}
+                  className={`
+                    w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200
+                    ${isActive 
+                      ? 'bg-blue-50 text-blue-600 border border-blue-200' 
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                    }
+                  `}
+                >
+                  <div className="flex items-center space-x-3">
+                    {item.icon}
+                    <span className="font-medium">{item.label}</span>
+                  </div>
+                  {item.subItems && (
+                    <div className={`transform transition-transform duration-200 ${
+                      isExpanded ? 'rotate-0' : '-rotate-90'
+                    }`}>
+                      <ChevronDown size={16} className="text-gray-400" />
+                    </div>
+                  )}
+                </button>
+                
+                {/* Sub-items with smooth animation */}
                 {item.subItems && (
-                  <ChevronDown size={16} className="text-gray-400" />
+                  <div 
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isExpanded ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="ml-8 mt-1 space-y-1">
+                      {item.subItems.map((subItem, subIndex) => {
+                        const isSubActive = isSubItemActive(subItem.path);
+                        return (
+                          <button
+                            key={subIndex}
+                            onClick={() => handleSubItemClick(subItem.path)}
+                            className={`
+                              w-full text-left block py-2 px-3 text-sm rounded-lg transition-colors duration-200
+                              ${isSubActive
+                                ? 'bg-blue-100 text-blue-700 font-medium'
+                                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                              }
+                            `}
+                          >
+                            {subItem.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 )}
-              </button>
-              
-              {/* Sub-items */}
-              {item.subItems && (
-                <div className="ml-8 mt-1 space-y-1">
-                  {item.subItems.map((subItem, subIndex) => (
-                    <a
-                      key={subIndex}
-                      href={subItem.path}
-                      className="block py-2 px-3 text-sm text-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-900"
-                    >
-                      {subItem.label}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </nav>
       </div>
     </>
