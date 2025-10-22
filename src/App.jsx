@@ -13,7 +13,7 @@ import {
   Settings
 } from 'lucide-react';
 import AllProducts from './pages/AllProducts';
-
+import CategoriesPage from './pages/CatagoriesPage';
 // Define menu structure here to share between components
 const menuItems = [
   { icon: <Home size={20} />, label: 'Dashboard', path: '/' },
@@ -61,7 +61,7 @@ function RouterApp() {
           />
         } />
         <Route path="/inventory/categories" element={
-          <TestPage 
+          <CategoriesPage 
             title="Categories" 
             description="Organize your products into categories for better inventory management and reporting."
           />
