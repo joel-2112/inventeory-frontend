@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import AllProducts from './pages/AllProducts';
 import CategoriesPage from './pages/CatagoriesPage';
+import LowStockPage from './pages/LowStockPage';
 // Define menu structure here to share between components
 const menuItems = [
   { icon: <Home size={20} />, label: 'Dashboard', path: '/' },
@@ -67,7 +68,7 @@ function RouterApp() {
           />
         } />
         <Route path="/inventory/low-stock" element={
-          <TestPage 
+          <LowStockPage 
             title="Low Stock Alerts" 
             description="Monitor products that are running low and need restocking to avoid stockouts."
           />
