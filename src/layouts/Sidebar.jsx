@@ -27,18 +27,11 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* Overlay for mobile */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-          onClick={onClose}
-        />
-      )}
 
       {/* Sidebar */}
       <div className={`
         fixed inset-y-0 left-0 z-30
-        w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
+        w-64 bg-white transform transition-transform duration-300 ease-in-out
         lg:translate-x-0 lg:static lg:z-auto
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
@@ -97,14 +90,6 @@ const Sidebar = ({ isOpen, onClose }) => {
             </div>
           ))}
         </nav>
-
-        {/* Sidebar footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-          <div className="bg-blue-50 rounded-lg p-3">
-            <p className="text-sm font-medium text-blue-900">Need help?</p>
-            <p className="text-xs text-blue-700 mt-1">Check our documentation</p>
-          </div>
-        </div>
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import { Menu, Bell, Search, User } from 'lucide-react';
 
 const Header = ({ onMenuClick }) => {
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
+    <header className="bg-white  border-b border-gray-200">
       <div className="flex items-center justify-between px-4 py-3 md:px-6">
         {/* Left section */}
         <div className="flex items-center">
