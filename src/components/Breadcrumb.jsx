@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronRight, Home } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const Breadcrumb = ({ activePath, menuItems, onPathChange }) => {
+const Breadcrumb = ({ activePath, menuItems }) => {
+  const navigate = useNavigate();
+
   // Function to get the breadcrumb items based on active path
   const getBreadcrumbItems = () => {
     const items = [];
@@ -36,8 +39,8 @@ const Breadcrumb = ({ activePath, menuItems, onPathChange }) => {
   const breadcrumbItems = getBreadcrumbItems();
 
   const handleBreadcrumbClick = (path) => {
-    if (onPathChange && path !== activePath) {
-      onPathChange(path);
+    if (path !== activePath) {
+      navigate(path);
     }
   };
 

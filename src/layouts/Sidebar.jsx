@@ -4,8 +4,10 @@ import {
   X,
   ChevronDown
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ isOpen, onClose, activePath, menuItems, onPathChange }) => {
+const Sidebar = ({ isOpen, onClose, activePath, menuItems }) => {
+  const navigate = useNavigate();
   const [expandedMenus, setExpandedMenus] = useState({});
 
   // Initialize expanded state for menus with subItems
@@ -51,9 +53,7 @@ const Sidebar = ({ isOpen, onClose, activePath, menuItems, onPathChange }) => {
       event.preventDefault();
       toggleMenu(item.path);
     } else {
-      if (onPathChange) {
-        onPathChange(item.path);
-      }
+      navigate(item.path);
       // Close sidebar on mobile after selection
       if (window.innerWidth < 1024) {
         onClose();
@@ -63,9 +63,7 @@ const Sidebar = ({ isOpen, onClose, activePath, menuItems, onPathChange }) => {
 
   // Handle sub-item click
   const handleSubItemClick = (path) => {
-    if (onPathChange) {
-      onPathChange(path);
-    }
+    navigate(path);
     // Close sidebar on mobile after selection
     if (window.innerWidth < 1024) {
       onClose();
@@ -74,6 +72,13 @@ const Sidebar = ({ isOpen, onClose, activePath, menuItems, onPathChange }) => {
 
   return (
     <>
+      {/* Overlay for mobile */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
+          onClick={onClose}
+        />
+      )}
 
       {/* Sidebar */}
       <div className={`

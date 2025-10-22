@@ -12,6 +12,7 @@ import {
   BarChart3, 
   Settings
 } from 'lucide-react';
+import AllProducts from './pages/AllProducts';
 
 // Define menu structure here to share between components
 const menuItems = [
@@ -54,7 +55,7 @@ function RouterApp() {
         
         {/* Inventory Routes */}
         <Route path="/inventory" element={
-          <TestPage 
+          <AllProducts 
             title="All Products" 
             description="Manage your complete product inventory. View, edit, and organize all your products in one place."
           />
