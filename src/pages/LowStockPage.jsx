@@ -151,7 +151,7 @@ const LowStockPage = () => {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-3 bg-red-500 rounded-2xl shadow-lg shadow-red-500/25">
+                <div className="p-3 bg-red-500 rounded-2xl">
                   <AlertTriangle className="text-white" size={28} />
                 </div>
                 <div>
@@ -167,7 +167,7 @@ const LowStockPage = () => {
                 className={`flex items-center space-x-2 px-4 py-3 rounded-2xl font-medium transition-all duration-300 ${
                   autoReorder
                     ? 'bg-green-500 text-white shadow-lg shadow-green-500/25'
-                    : 'bg-white/80 text-gray-700 shadow-lg shadow-gray-500/10 border border-white/20'
+                    : 'bg-white/80 text-gray-700  border border-white/20'
                 }`}
               >
                 {autoReorder ? <Pause size={18} /> : <Play size={18} />}
@@ -184,7 +184,7 @@ const LowStockPage = () => {
 
         {/* Critical Alert Banner */}
         {lowStockStats.criticalItems > 0 && (
-          <div className="bg-linear-to-br from-red-500 to-orange-500 text-white rounded-2xl p-6 mb-8 shadow-lg shadow-red-500/25">
+          <div className="bg-linear-to-br from-red-500 to-orange-500 text-white rounded-2xl p-6 mb-8 ">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <Bell size={24} />
@@ -240,7 +240,7 @@ const LowStockPage = () => {
           ].map((stat, index) => (
             <div 
               key={index}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 p-6 shadow-lg shadow-gray-500/10 hover:shadow-gray-500/20 transition-all duration-300"
+              className="bg-white/80 backdrop-blur-sm rounded-2xl border-2 border-white/10 p-6  transition-all duration-300"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -263,7 +263,7 @@ const LowStockPage = () => {
         </div>
 
         {/* Control Panel */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 p-6 shadow-lg shadow-gray-500/10 mb-8">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 p-6  mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
@@ -317,7 +317,7 @@ const LowStockPage = () => {
         </div>
 
         {/* Products Table - No Cards! */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg shadow-gray-500/10 overflow-hidden mb-8">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200  overflow-hidden mb-8">
           {/* Table Header */}
           <div className="border-b border-gray-200 bg-gray-50/50">
             <div className="grid grid-cols-12 gap-4 px-6 py-4 text-sm font-semibold text-gray-700">
