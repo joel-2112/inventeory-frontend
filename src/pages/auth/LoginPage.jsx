@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Shield, Building2, Sparkles } from 'lucide-react';
 import registerimg from '../../assets/image.png';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -183,13 +184,13 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <button
+            <Link to={'/dashboard'}
               type="submit"
               className="w-full flex justify-center items-center space-x-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
             >
               <span>Sign in</span>
               <ArrowRight size={18} />
-            </button>
+            </Link>
 
             {/* Social Login */}
             <div className="mt-6">
@@ -203,7 +204,7 @@ const LoginPage = () => {
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
-                <button
+                <Link to={'/dashboard'}
                   type="button"
                   className="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                 >
@@ -214,7 +215,7 @@ const LoginPage = () => {
                     <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                   </svg>
                   <span className="ml-2">Google</span>
-                </button>
+                </Link>
 
                 <button
                   type="button"

@@ -27,7 +27,7 @@ import HomePage from "./pages/home/HomePage";
 
 // Define menu structure here to share between components
 const menuItems = [
-  { icon: <Home size={20} />, label: "Dashboard", path: "/" },
+  { icon: <Home size={20} />, label: "Dashboard", path: "/dashboard" },
   {
     icon: <Package size={20} />,
     label: "Inventory",
@@ -152,7 +152,7 @@ function MainLayoutRoutes() {
                 The page you're looking for doesn't exist.
               </p>
               <button
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/dashboard")}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Go to Dashboard
@@ -170,14 +170,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* home page routes */}
+        {/* Public routes - outside MainLayout */}
         <Route path="/" element={<HomePage />} />
-        {/* Auth routes - outside MainLayout */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         
-        {/* All other routes - inside MainLayout */}
-        <Route path="/dashboard*" element={<MainLayoutRoutes />} />
+        {/* Protected routes - inside MainLayout */}
+        <Route path="/*" element={<MainLayoutRoutes />} />
       </Routes>
     </Router>
   );

@@ -7,10 +7,7 @@ const Breadcrumb = ({ activePath, menuItems }) => {
 
   // Function to get the breadcrumb items based on active path
   const getBreadcrumbItems = () => {
-    const items = [];
-    
-    // Always start with Home/Dashboard
-    items.push({ label: 'Dashboard', path: '/' });
+    const items = [];    
     
     // If we're not on the dashboard, find the active items
     if (activePath !== '/') {
