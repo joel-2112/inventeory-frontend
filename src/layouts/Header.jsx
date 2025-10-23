@@ -38,7 +38,7 @@ const Header = ({ onMenuClick }) => {
           {/* User profile */}
           <div className="flex items-center space-x-3">
             <div className="hidden sm:block text-right">
-              <p className="text-sm font-medium text-gray-900">John Doe</p>
+              <p className="text-sm font-medium text-gray-900">Eyuel Kassahun</p>
               <p className="text-xs text-gray-500">Inventory Manager</p>
             </div>
             <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">

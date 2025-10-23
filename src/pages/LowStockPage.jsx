@@ -13,7 +13,6 @@ import {
   Download,
   Play,
   Pause,
-  RotateCcw,
   Bell,
   Target,
   TrendingDown,
@@ -22,7 +21,13 @@ import {
   X,
   Search,
   ChevronDown,
-  Eye
+  Eye,
+  Sparkles,
+  Cpu,
+  Brain,
+  Satellite,
+  Shield,
+  Gauge
 } from 'lucide-react';
 import StockMeter from '../components/StockMeter';
 import UrgencyBadge from '../components/UrgencyBadge';
@@ -38,6 +43,7 @@ const LowStockPage = () => {
   const [expandedProduct, setExpandedProduct] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState(new Set());
   const [autoReorder, setAutoReorder] = useState(false);
+  const [predictiveMode, setPredictiveMode] = useState(true);
 
   // Filter and search products
   useEffect(() => {
@@ -126,55 +132,78 @@ const LowStockPage = () => {
     return [...new Set(products.map(p => p.category))];
   };
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'critical': return <Zap size={16} className="text-red-500" />;
-      case 'urgent': return <AlertCircle size={16} className="text-orange-500" />;
-      case 'warning': return <AlertTriangle size={16} className="text-yellow-500" />;
-      case 'out-of-stock': return <X size={16} className="text-red-500" />;
-      default: return <Clock size={16} className="text-gray-500" />;
-    }
+  // Enhanced urgency indicator with professional design
+  const EnhancedUrgencyIndicator = ({ urgency, size = "medium" }) => {
+    const urgencyConfig = {
+      critical: { 
+        color: 'bg-red-50 border-red-200 text-red-700', 
+        icon: Zap,
+        iconColor: 'text-red-600'
+      },
+      high: { 
+        color: 'bg-orange-50 border-orange-200 text-orange-700', 
+        icon: AlertTriangle,
+        iconColor: 'text-orange-600'
+      },
+      medium: { 
+        color: 'bg-yellow-50 border-yellow-200 text-yellow-700', 
+        icon: Clock,
+        iconColor: 'text-yellow-600'
+      },
+      low: { 
+        color: 'bg-blue-50 border-blue-200 text-blue-700', 
+        icon: Shield,
+        iconColor: 'text-blue-600'
+      }
+    };
+
+    const config = urgencyConfig[urgency];
+    const Icon = config.icon;
+
+    return (
+      <div className={`inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg border ${config.color} font-medium text-sm`}>
+        <Icon size={14} className={config.iconColor} />
+        <span className="capitalize">{urgency}</span>
+      </div>
+    );
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-red-50/20 via-orange-50/10 to-yellow-50/10">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-48 h-48 bg-red-200/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-64 h-64 bg-orange-200/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-yellow-200/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 py-8 relative z-10">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="p-3 bg-red-500 rounded-2xl">
-                  <AlertTriangle className="text-white" size={28} />
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-red-50 rounded-xl border border-red-100">
+                <Brain className="text-red-600" size={32} />
+              </div>
+              <div>
+                <div className="flex items-center space-x-3 mb-2">
+                  <h1 className="text-3xl font-bold text-gray-900">Stock Intelligence</h1>
+
                 </div>
-                <div>
-                  <h1 className="text-3xl font-bold text-gray-900">Stock Alert Center</h1>
-                  <p className="text-gray-600 text-lg">Monitor and manage inventory levels in real-time</p>
-                </div>
+                <p className="text-gray-600 text-lg">
+                  Monitor and manage inventory levels with predictive analytics
+                </p>
               </div>
             </div>
             
             <div className="flex items-center space-x-3">
+
               <button
                 onClick={() => setAutoReorder(!autoReorder)}
-                className={`flex items-center space-x-2 px-4 py-3 rounded-2xl font-medium transition-all duration-300 ${
+                className={`flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all duration-200 border ${
                   autoReorder
-                    ? 'bg-green-500 text-white shadow-lg shadow-green-500/25'
-                    : 'bg-white/80 text-gray-700  border border-white/20'
+                    ? 'bg-green-100 text-blue-700 border-blue-200 '
+                    : 'bg-white text-gray-700 border-gray-200'
                 }`}
               >
                 {autoReorder ? <Pause size={18} /> : <Play size={18} />}
-                <span>Auto-Reorder {autoReorder ? 'On' : 'Off'}</span>
+                <span>Auto-Reorder</span>
               </button>
               
-              <button className="flex items-center space-x-2 px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/20 text-gray-700 rounded-2xl shadow-lg shadow-gray-500/10 hover:scale-105 transition-all duration-300">
+              <button className="flex items-center space-x-2 px-4 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                 <Download size={18} />
                 <span>Export Report</span>
               </button>
@@ -184,13 +213,13 @@ const LowStockPage = () => {
 
         {/* Critical Alert Banner */}
         {lowStockStats.criticalItems > 0 && (
-          <div className="bg-linear-to-br from-red-500 to-orange-500 text-white rounded-2xl p-6 mb-8 ">
+          <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <Bell size={24} />
+                <Bell size={24} className="text-red-600" />
                 <div>
-                  <h3 className="text-xl font-bold">Critical Stock Alert</h3>
-                  <p className="opacity-90">
+                  <h3 className="text-xl font-bold text-red-900">Critical Stock Alert</h3>
+                  <p className="text-red-700">
                     {lowStockStats.criticalItems} items are critically low and {lowStockStats.outOfStock} are out of stock
                   </p>
                 </div>
@@ -198,7 +227,7 @@ const LowStockPage = () => {
               <button 
                 onClick={handleBulkReorder}
                 disabled={selectedProducts.size === 0}
-                className="px-6 py-3 bg-white text-red-600 rounded-xl font-semibold hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 Reorder Selected ({selectedProducts.size})
               </button>
@@ -210,37 +239,49 @@ const LowStockPage = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
             {
-              icon: AlertTriangle,
+              icon: Zap,
               label: 'Critical Items',
               value: lowStockStats.criticalItems,
               color: 'red',
-              change: '+2'
+              trend: '+2',
+              bgColor: 'bg-red-50',
+              iconColor: 'text-red-600',
+              borderColor: 'border-red-100'
             },
             {
               icon: Package,
               label: 'Total Low Stock',
               value: lowStockStats.totalLowStock,
               color: 'orange',
-              change: '+3'
+              trend: '+3',
+              bgColor: 'bg-orange-50',
+              iconColor: 'text-orange-600',
+              borderColor: 'border-orange-100'
             },
             {
-              icon: TrendingDown,
-              label: 'Days Until Stockout',
-              value: lowStockStats.estimatedStockoutDays,
+              icon: Gauge,
+              label: 'Stockout ETA',
+              value: `${lowStockStats.estimatedStockoutDays}d`,
               color: 'yellow',
-              change: '-5'
+              trend: '-5',
+              bgColor: 'bg-yellow-50',
+              iconColor: 'text-yellow-600',
+              borderColor: 'border-yellow-100'
             },
             {
               icon: BarChart3,
               label: 'Value at Risk',
               value: formatCurrency(lowStockStats.totalValueAtRisk),
               color: 'purple',
-              change: '+12%'
+              trend: '+12%',
+              bgColor: 'bg-purple-50',
+              iconColor: 'text-purple-600',
+              borderColor: 'border-purple-100'
             }
           ].map((stat, index) => (
             <div 
               key={index}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl border-2 border-white/10 p-6  transition-all duration-300"
+              className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-200"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -251,11 +292,11 @@ const LowStockPage = () => {
                     stat.color === 'orange' ? 'text-orange-600' :
                     stat.color === 'yellow' ? 'text-yellow-600' : 'text-purple-600'
                   }`}>
-                    {stat.change} from last week
+                    {stat.trend} from last week
                   </p>
                 </div>
-                <div className={`p-3 rounded-2xl bg-${stat.color}-500/10`}>
-                  <stat.icon className={`text-${stat.color}-600`} size={24} />
+                <div className={`p-3 rounded-xl ${stat.bgColor} border ${stat.borderColor}`}>
+                  <stat.icon className={stat.iconColor} size={24} />
                 </div>
               </div>
             </div>
@@ -263,7 +304,7 @@ const LowStockPage = () => {
         </div>
 
         {/* Control Panel */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 p-6  mb-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8 shadow-sm">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
@@ -273,7 +314,7 @@ const LowStockPage = () => {
                 placeholder="Search low stock items..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/20 transition-all duration-300"
+                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               />
             </div>
 
@@ -282,7 +323,7 @@ const LowStockPage = () => {
               <select
                 value={selectedUrgency}
                 onChange={(e) => setSelectedUrgency(e.target.value)}
-                className="bg-white/50 border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500/20 focus:border-red-500/20 transition-all duration-300"
+                className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               >
                 <option value="all">All Urgency Levels</option>
                 <option value="critical">Critical</option>
@@ -294,7 +335,7 @@ const LowStockPage = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="bg-white/50 border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500/20 focus:border-red-500/20 transition-all duration-300"
+                className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               >
                 <option value="all">All Categories</option>
                 {getCategories().map(category => (
@@ -305,28 +346,33 @@ const LowStockPage = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white/50 border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500/20 focus:border-red-500/20 transition-all duration-300"
+                className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               >
                 <option value="urgency">Sort by Urgency</option>
                 <option value="daysUntilStockout">Days Until Stockout</option>
                 <option value="currentStock">Current Stock</option>
                 <option value="name">Product Name</option>
               </select>
+
+              <button className="flex items-center space-x-2 border border-gray-200 rounded-lg px-4 py-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+                <Filter size={18} />
+                <span>More Filters</span>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Products Table - No Cards! */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200  overflow-hidden mb-8">
+        {/* Products Table */}
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mb-8">
           {/* Table Header */}
-          <div className="border-b border-gray-200 bg-gray-50/50">
+          <div className="border-b border-gray-200 bg-gray-50">
             <div className="grid grid-cols-12 gap-4 px-6 py-4 text-sm font-semibold text-gray-700">
               <div className="col-span-1 flex items-center">
                 <input
                   type="checkbox"
                   checked={selectedProducts.size === filteredProducts.length && filteredProducts.length > 0}
                   onChange={selectAllProducts}
-                  className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
               </div>
               <div className="col-span-3">Product</div>
@@ -343,10 +389,10 @@ const LowStockPage = () => {
             {filteredProducts.map((product) => (
               <div 
                 key={product.id}
-                className={`transition-all duration-300 hover:bg-gray-50/50 ${
-                  expandedProduct === product.id ? 'bg-blue-50/30' : ''
+                className={`transition-colors duration-150 hover:bg-gray-50 ${
+                  expandedProduct === product.id ? 'bg-blue-50' : ''
                 } ${
-                  product.status === 'out-of-stock' ? 'bg-red-50/30' : ''
+                  product.status === 'out-of-stock' ? 'bg-red-50' : ''
                 }`}
               >
                 {/* Main Row */}
@@ -361,7 +407,7 @@ const LowStockPage = () => {
                       checked={selectedProducts.has(product.id)}
                       onChange={() => toggleProductSelection(product.id)}
                       onClick={(e) => e.stopPropagation()}
-                      className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                   </div>
 
@@ -371,7 +417,7 @@ const LowStockPage = () => {
                       <img 
                         src={product.image} 
                         alt={product.name}
-                        className="w-10 h-10 rounded-lg object-cover"
+                        className="w-10 h-10 rounded-lg object-cover border border-gray-200"
                       />
                       <div>
                         <div className="font-semibold text-gray-900">{product.name}</div>
@@ -393,7 +439,7 @@ const LowStockPage = () => {
 
                   {/* Urgency */}
                   <div className="col-span-1">
-                    <UrgencyBadge urgency={product.urgency} />
+                    <EnhancedUrgencyIndicator urgency={product.urgency} />
                   </div>
 
                   {/* Supplier */}
@@ -425,7 +471,7 @@ const LowStockPage = () => {
                           e.stopPropagation();
                           handleQuickReorder(product.id);
                         }}
-                        className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                        className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-150"
                         title="Quick Reorder"
                       >
                         <Truck size={16} />
@@ -435,7 +481,7 @@ const LowStockPage = () => {
                           e.stopPropagation();
                           setExpandedProduct(expandedProduct === product.id ? null : product.id);
                         }}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-150"
                         title="View Details"
                       >
                         <Eye size={16} />
@@ -450,16 +496,18 @@ const LowStockPage = () => {
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
                       <div>
                         <label className="font-medium text-gray-700">Cost & Pricing</label>
-                        <div className="mt-2 space-y-1">
+                        <div className="mt-2 space-y-1 text-gray-600">
                           <div>Cost: {formatCurrency(product.cost)}</div>
                           <div>Price: {formatCurrency(product.price)}</div>
-                          <div>Margin: {((product.price - product.cost) / product.cost * 100).toFixed(1)}%</div>
+                          <div className="text-green-600 font-medium">
+                            Margin: {((product.price - product.cost) / product.cost * 100).toFixed(1)}%
+                          </div>
                         </div>
                       </div>
                       
                       <div>
                         <label className="font-medium text-gray-700">Reorder Info</label>
-                        <div className="mt-2 space-y-1">
+                        <div className="mt-2 space-y-1 text-gray-600">
                           <div>Suggested Qty: {product.reorderQuantity}</div>
                           <div>Total Cost: {formatCurrency(product.cost * product.reorderQuantity)}</div>
                           <div>Last Restock: {product.lastRestock}</div>
@@ -469,12 +517,12 @@ const LowStockPage = () => {
                       <div>
                         <label className="font-medium text-gray-700">Supplier Contact</label>
                         <div className="mt-2 space-y-2">
-                          <div className="flex items-center space-x-2">
-                            <Mail size={14} className="text-gray-400" />
-                            <span className="text-blue-600">{product.supplierContact}</span>
+                          <div className="flex items-center space-x-2 text-blue-600">
+                            <Mail size={14} />
+                            <span>{product.supplierContact}</span>
                           </div>
-                          <div className="flex items-center space-x-2">
-                            <Phone size={14} className="text-gray-400" />
+                          <div className="flex items-center space-x-2 text-gray-600">
+                            <Phone size={14} />
                             <span>+1-800-XXX-XXXX</span>
                           </div>
                         </div>
@@ -485,11 +533,11 @@ const LowStockPage = () => {
                         <div className="mt-2 space-y-2">
                           <button
                             onClick={() => handleQuickReorder(product.id)}
-                            className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm"
+                            className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors duration-150 text-sm font-medium"
                           >
                             Reorder Now
                           </button>
-                          <button className="w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                          <button className="w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-150 text-sm">
                             Contact Supplier
                           </button>
                         </div>
@@ -513,15 +561,15 @@ const LowStockPage = () => {
 
         {/* Smart Reorder Suggestions */}
         {reorderSuggestions.length > 0 && (
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 p-6 shadow-lg shadow-gray-500/10">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-900 flex items-center space-x-2">
-                <Target size={24} className="text-blue-600" />
+                <Sparkles size={24} className="text-blue-600" />
                 <span>Smart Reorder Suggestions</span>
               </h3>
               <button 
                 onClick={handleBulkReorder}
-                className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-150 shadow-sm"
               >
                 Reorder All Suggested
               </button>
@@ -529,28 +577,28 @@ const LowStockPage = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {reorderSuggestions.map((suggestion, index) => (
-                <div key={index} className="bg-linear-to-br from-blue-50 to-cyan-50 rounded-xl p-4 border border-blue-200">
+                <div key={index} className="bg-blue-50 rounded-xl p-4 border border-blue-200">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold text-gray-900">{suggestion.name}</h4>
-                    <UrgencyBadge urgency={suggestion.urgency} />
+                    <EnhancedUrgencyIndicator urgency={suggestion.urgency} />
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Quantity:</span>
-                      <span className="font-semibold">{suggestion.suggestedQuantity}</span>
+                      <span className="font-semibold text-gray-900">{suggestion.suggestedQuantity}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Total Cost:</span>
-                      <span className="font-semibold">{formatCurrency(suggestion.totalCost)}</span>
+                      <span className="font-semibold text-gray-900">{formatCurrency(suggestion.totalCost)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Supplier:</span>
-                      <span className="font-semibold">{suggestion.supplier}</span>
+                      <span className="font-semibold text-gray-900">{suggestion.supplier}</span>
                     </div>
                   </div>
                   <button
                     onClick={() => handleReorder(suggestion.productId, suggestion.suggestedQuantity)}
-                    className="w-full mt-3 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                    className="w-full mt-3 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-150 text-sm font-medium"
                   >
                     Reorder This Item
                   </button>
