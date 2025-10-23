@@ -23,6 +23,7 @@ import CategoriesPage from "./pages/CatagoriesPage";
 import LowStockPage from "./pages/LowStockPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import HomePage from "./pages/home/HomePage";
 
 // Define menu structure here to share between components
 const menuItems = [
@@ -61,7 +62,7 @@ function MainLayoutRoutes() {
       onPathChange={handlePathChange}
     >
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         
         {/* Inventory Routes */}
         <Route
@@ -169,12 +170,14 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* home page routes */}
+        <Route path="/" element={<HomePage />} />
         {/* Auth routes - outside MainLayout */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         
         {/* All other routes - inside MainLayout */}
-        <Route path="/*" element={<MainLayoutRoutes />} />
+        <Route path="/dashboard*" element={<MainLayoutRoutes />} />
       </Routes>
     </Router>
   );

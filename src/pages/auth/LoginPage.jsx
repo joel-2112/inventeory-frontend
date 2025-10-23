@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Shield, Building2, Sparkles } from 'lucide-react';
-import registerimg from '../../../public/image.png';
+import registerimg from '../../assets/image.png';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);

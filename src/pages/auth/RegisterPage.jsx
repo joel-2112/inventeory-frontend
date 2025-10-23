@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, Building, ArrowRight, Shield, CheckCircle, X } from 'lucide-react';
-import loginimg from '../../../public/me.jpg';
+import loginimg from '../../assets/me.jpg';
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -51,11 +51,11 @@ const RegisterPage = () => {
   const PasswordRequirement = ({ met, text }) => (
     <div className="flex items-center space-x-2">
       {met ? (
-        <CheckCircle size={16} className="text-green-500" />
+        <CheckCircle size={16} className="text-blue-500" />
       ) : (
         <X size={16} className="text-gray-300" />
       )}
-      <span className={`text-sm ${met ? 'text-green-600' : 'text-gray-500'}`}>
+      <span className={`text-sm ${met ? 'text-blue-600' : 'text-gray-500'}`}>
         {text}
       </span>
     </div>
@@ -75,25 +75,25 @@ const RegisterPage = () => {
         <div className="relative z-10 flex flex-col justify-between p-12 text-white w-full">
           {/* Logo/Brand */}
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-green-600 rounded-xl">
+            <div className="p-2 bg-blue-600 rounded-xl">
               <Building size={28} />
             </div>
             <div>
               <h1 className="text-2xl font-bold">StockeFlow</h1>
-              <p className="text-green-200 text-sm">Inventory Management</p>
+              <p className="text-blue-200 text-sm">Inventory Management</p>
             </div>
           </div>
 
           {/* Featured Content */}
           <div className="max-w-md">
             <div className="flex items-center space-x-2 mb-4">
-              <CheckCircle className="text-green-400" size={20} />
-              <span className="text-green-200 font-medium">Start Free Trial</span>
+              <CheckCircle className="text-blue-400" size={20} />
+              <span className="text-blue-200 font-medium">Start Free Trial</span>
             </div>
             <h2 className="text-4xl font-bold mb-4 leading-tight">
               Transform Your Inventory Management
             </h2>
-            <p className="text-green-100 text-lg leading-relaxed">
+            <p className="text-blue-100 text-lg leading-relaxed">
               Get started with stockeflow and experience the power of intelligent inventory 
               optimization, real-time analytics, and seamless supply chain management.
             </p>
@@ -102,26 +102,26 @@ const RegisterPage = () => {
           {/* Features List */}
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
-              <CheckCircle size={20} className="text-green-400" />
-              <span className="text-green-100">Real-time stock monitoring</span>
+              <CheckCircle size={20} className="text-blue-400" />
+              <span className="text-blue-100">Real-time stock monitoring</span>
             </div>
             <div className="flex items-center space-x-3">
-              <CheckCircle size={20} className="text-green-400" />
-              <span className="text-green-100">Predictive analytics</span>
+              <CheckCircle size={20} className="text-blue-400" />
+              <span className="text-blue-100">Predictive analytics</span>
             </div>
             <div className="flex items-center space-x-3">
-              <CheckCircle size={20} className="text-green-400" />
-              <span className="text-green-100">Multi-location support</span>
+              <CheckCircle size={20} className="text-blue-400" />
+              <span className="text-blue-100">Multi-location support</span>
             </div>
             <div className="flex items-center space-x-3">
-              <CheckCircle size={20} className="text-green-400" />
-              <span className="text-green-100">Automated reordering</span>
+              <CheckCircle size={20} className="text-blue-400" />
+              <span className="text-blue-100">Automated reordering</span>
             </div>
           </div>
         </div>
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-r from-green-900/80 to-blue-900/60"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-blue-900/80 to-blue-900/60"></div>
       </div>
 
       {/* Right Side - Registration Form */}
@@ -130,7 +130,7 @@ const RegisterPage = () => {
           {/* Header */}
           <div className="text-center lg:text-left">
             <div className="flex items-center justify-center lg:justify-start space-x-3 mb-8">
-              <div className="p-2 bg-green-600 rounded-lg">
+              <div className="p-2 bg-blue-600 rounded-lg">
                 <Building size={24} className="text-white" />
               </div>
               <div>
@@ -166,7 +166,7 @@ const RegisterPage = () => {
                     required
                     value={formData.firstName}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                     placeholder="First name"
                   />
                 </div>
@@ -183,7 +183,7 @@ const RegisterPage = () => {
                   required
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="block w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                  className="block w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                   placeholder="Last name"
                 />
               </div>
@@ -205,7 +205,7 @@ const RegisterPage = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                   placeholder="Enter your work email"
                 />
               </div>
@@ -227,7 +227,7 @@ const RegisterPage = () => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                   placeholder="Create a password"
                 />
                 <button
@@ -271,7 +271,7 @@ const RegisterPage = () => {
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                   placeholder="Confirm your password"
                 />
                 <button
@@ -298,15 +298,15 @@ const RegisterPage = () => {
                   required
                   checked={formData.agreeToTerms}
                   onChange={handleChange}
-                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
                 />
                 <label htmlFor="agreeToTerms" className="text-sm text-gray-700">
                   I agree to the{' '}
-                  <a href="#" className="font-medium text-green-600 hover:text-green-500">
+                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
                     Terms of Service
                   </a>{' '}
                   and{' '}
-                  <a href="#" className="font-medium text-green-600 hover:text-green-500">
+                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
                     Privacy Policy
                   </a>
                 </label>
@@ -319,7 +319,7 @@ const RegisterPage = () => {
                   type="checkbox"
                   checked={formData.receiveUpdates}
                   onChange={handleChange}
-                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
                 />
                 <label htmlFor="receiveUpdates" className="text-sm text-gray-700">
                   Send me product updates, tips, and announcements
@@ -329,7 +329,7 @@ const RegisterPage = () => {
 
             <button
               type="submit"
-              className="w-full flex justify-center items-center space-x-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 transform hover:scale-105"
+              className="w-full flex justify-center items-center space-x-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
             >
               <span>Start Free Trial</span>
               <ArrowRight size={18} />
@@ -339,7 +339,7 @@ const RegisterPage = () => {
             <div className="text-center mt-8">
               <p className="text-gray-600">
                 Already have an account?{' '}
-                <a href="/login" className="font-medium text-green-600 hover:text-green-500 transition-colors duration-200">
+                <a href="/login" className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200">
                   Sign in
                 </a>
               </p>
