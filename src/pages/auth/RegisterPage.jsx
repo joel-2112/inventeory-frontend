@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, Building, ArrowRight, Shield, CheckCircle, X } from 'lucide-react';
 import loginimg from '../../assets/me.jpg';
+import { Link } from 'react-router-dom';
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -327,13 +328,13 @@ const RegisterPage = () => {
               </div>
             </div>
 
-            <button
+            <Link to={'/login'}
               type="submit"
               className="w-full flex justify-center items-center space-x-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
             >
               <span>Start Free Trial</span>
               <ArrowRight size={18} />
-            </button>
+            </Link>
 
             {/* Sign In Link */}
             <div className="text-center mt-8">
