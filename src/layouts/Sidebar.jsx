@@ -85,7 +85,7 @@ const Sidebar = ({ isOpen, onClose, activePath, menuItems }) => {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <Package size={20} className="text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-800">StockMaster</span>
+            <span className="text-xl font-bold text-gray-800">MasterInvent</span>
           </div>
           <button 
             onClick={onClose}
