@@ -72,14 +72,6 @@ const Sidebar = ({ isOpen, onClose, activePath, menuItems }) => {
 
   return (
     <>
-      {/* Overlay for mobile */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-          onClick={onClose}
-        />
-      )}
-
       {/* Sidebar */}
       <div className={`
         fixed inset-y-0 left-0 z-30
