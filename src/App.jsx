@@ -24,6 +24,7 @@ import LowStockPage from "./pages/LowStockPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import HomePage from "./pages/home/HomePage";
+import OrdersPage from "./pages/OrdersPage";
 
 // Define menu structure here to share between components
 const menuItems = [
@@ -115,7 +116,7 @@ function MainLayoutRoutes() {
         <Route
           path="/orders"
           element={
-            <TestPage
+            <OrdersPage
               title="Orders"
               description="Track and manage all incoming and outgoing orders with real-time status updates."
             />
