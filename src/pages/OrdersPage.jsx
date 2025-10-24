@@ -532,7 +532,7 @@ const OrdersPage = () => {
       <div className="fixed inset-y-0 right-0  bg-white border-l border-gray-200 shadow-xl z-50 overflow-y-auto">
         <div className="p-6">
           {/* Header */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between w-full fixed z-10 p-4 top-0 bg-gray-100 rounded-md border border-gray-50">
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => setShowOrderForm(false)}
@@ -540,7 +540,7 @@ const OrdersPage = () => {
               >
                 <ArrowLeft className="w-4 h-4" />
               </button>
-              <div className=" fixed z-10 bg-gray-100 rounded-md border border-gray-50 w-full p-4 ">
+              <div >
                 <h2 className="text-lg font-medium text-gray-900">
                   Create New Order
                 </h2>
@@ -802,23 +802,18 @@ const OrdersPage = () => {
             </div>
           </form>
           <div className="flex items-between justify-between p-4 bg-gray-50 ">
-
-           <button
+            <button
               onClick={handleSubmit}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
             >
               <Save className="w-4 h-4" />
               <span>Create Order</span>
             </button>
-             <button
-            
-              className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
-            >
+            <button className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
               <Save className="w-4 h-4" />
               <span>cancel</span>
             </button>
-                      </div>
-
+          </div>
         </div>
       </div>
     );
